@@ -7,6 +7,7 @@ Has two buttons:
 (2) to resume the slideshow
 
 Main Challenges Faced:
+
 (1) setTimeout() function was a pain to work with but I understood it quite well by the end
 
 (2) A point to remember that sometimes clearTimeout() doesn't work by applying it to the id of the latest setTimeout() function, so apply to all possible setTimeout function id's (which are returned values from the setTimeout() functions)
