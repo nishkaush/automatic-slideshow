@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>slideshow</title>
+    <style media="screen">
+        body {
+            width: 100%;
+            height: 600px;
+            background-color: #FFE750;
+        }
+
+        .main-container {
+            width: 65%;
+            height: 100%;
+            background-color: white;
+            margin: 4em auto;
+            display: flex;
+            box-shadow: 15px 15px 25px 15px black;
+            border-radius: 50px;
+        }
+
+        .image {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .image:hover .left-div {
+            display: flex;
+        }
+
+        .image:hover .right-div {
+            display: flex;
+        }
+
+        .left-div {
+            position: absolute;
+            width: 10%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            opacity: 0.7;
+            display: none;
+            border-radius: 50px;
+            border: 3px solid #000;
+        }
+
+        .right-div {
+            position: absolute;
+            display: flex;
+            width: 10%;
+            height: 100%;
+            left: 90%;
+            background-color: white;
+            opacity: 0.7;
+            display: none;
+            border-radius: 50px;
+            border: 3px solid #000;
+        }
+
+        #left-arrow {
+            border-right: 50px solid black;
+            height: 0;
+            width: 0;
+            border-top: 25px solid transparent;
+            border-left: 2px solid transparent;
+            border-bottom: 25px solid transparent;
+            margin: auto;
+        }
+
+        #right-arrow {
+            border-left: 50px solid black;
+            height: 0;
+            width: 0;
+            border-top: 25px solid transparent;
+            border-right: 2px solid transparent;
+            border-bottom: 25px solid transparent;
+            margin: auto;
+        }
+
+        img {
+            height: 100%;
+            width: 100%;
+            border-radius: 50px;
+            border-right: 2px solid #000;
+            border-bottom: 2px solid #000;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="main-container">
+
+        <div class="image">
+            <div class="left-div">
+                <div id="left-arrow"></div>
+            </div>
+
+            <div class="right-div">
+                <div id="right-arrow"></div>
+            </div>
+
+            <img id="img1" class="myimages" src="http://www.nishant-kaushish.com/wp-content/uploads/2017/03/colored-umbrellas.jpeg" alt="colorful umbrellas">
+            <img id="img2" class="myimages" src="http://www.nishant-kaushish.com/wp-content/uploads/2017/03/yellow-lights.jpeg" alt="yellow lights">
+            <img id="img3" class="myimages" src="http://www.nishant-kaushish.com/wp-content/uploads/2017/03/multiple-pain-color-choices.jpg" alt="colorful paint choice">
+            <img id="img4" class="myimages" src="http://www.nishant-kaushish.com/wp-content/uploads/2017/03/colorful-bulb.jpeg" alt="colorful bulb">
+            <img id="img5" class="myimages" src="http://www.nishant-kaushish.com/wp-content/uploads/2017/03/man-drawing-onpad.jpg" alt="man writing on pad">
+            <img id="img6" class="myimages" src="http://www.nishant-kaushish.com/wp-content/uploads/2017/03/indian-lights.jpeg" alt="indian lights">
+
+        </div>
+
+    </div>
+
+
+
+    <script type="text/javascript">
+        var toconvert = document.querySelectorAll(".myimages");
+        var images = [].slice.call(toconvert);
+        console.log(images);
+
+        images.forEach(e => e.style.display = "none");
+        images[0].style.display = "block";
+
+        // --------------------------------------------------
+        // --------------------------------------------------
+        // --------------------------------------------------
+
+        //function 1 -->automatically moves the images
+
+        setInterval(automatic, 3000);
+
+        function automatic() {
+            var currentShowing = "";
+            var startAgain = images.every(function(e) {
+                return e.style.display === "none";
+            });
+            if (startAgain === true) {
+                images[0].style.display = "block";
+            } else {
+                images.forEach(function(e) {
+                    if (e.style.display === "block") {
+                        currentShowing = e;
+                        e.style.display = "none";
+                    }
+                });
+                if (currentShowing.nextElementSibling === null) {
+                    images[0].style.display = "block";
+                    currentShowing = "";
+                } else {
+                    currentShowing.nextElementSibling.style.display = "block";
+                }
+            }
+        }
+
+        // -------------------------------------------------- // -------------------------------------------------- // -------------------------------------------------- // -------------------------------------------------- // --------------------------------------------------
+        // -------------------------------------------------- // --------------------------------------------------
+        //function 2 --> user right clicks and move through the images var
+
+        rightArrow = document.getElementById("right-arrow");
+        rightArrow.addEventListener("click", changeForward);
+
+        function changeForward() {
+            var currentShowing = "";
+            var startAgain = images.every(function(e) {
+                e.style.display === "none";
+            });
+            if (startAgain === true) {
+                images[0].style.display = "block";
+            } else {
+                images.forEach(function(e) {
+                    if (e.style.display === "block") {
+                        currentShowing = e;
+                        e.style.display = "none";
+                    }
+                });
+                if (currentShowing.nextElementSibling === null) {
+                    images[0].style.display = "block";
+                    currentShowing = "";
+                } else {
+                    currentShowing.nextElementSibling.style.display = "block";
+                }
+            }
+        } // -------------------------------------------------- // -------------------------------------------------- // -------------------------------------------------- // -------------------------------------------------- // --------------------------------------------------
+        // -------------------------------------------------- // --------------------------------------------------
+        //function 3 --> user left clicks and move through the images
+
+        var leftArrow = document.getElementById("left-arrow");
+        leftArrow.addEventListener("click", changeBackward);
+
+        var rightDiv = document.querySelector(".right-div");
+
+        function changeBackward() {
+            var currentShowing = "";
+            var startAgain = images.every(function(e) {
+                e.style.display === "none";
+            });
+            if (startAgain === true) {
+                images[images.length - 1].style.display = "block";
+            } else {
+                images.forEach(function(e) {
+                    if (e.style.display === "block") {
+                        currentShowing = e;
+                        e.style.display = "none";
+                    }
+                });
+                if (currentShowing.previousElementSibling === rightDiv) {
+                    images[images.length - 1].style.display = "block";
+                    currentShowing = "";
+                } else {
+                    currentShowing.previousElementSibling.style.display = "block";
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
